@@ -66,6 +66,14 @@ HTML=r'''<!DOCTYPE html><html lang="en"><head>
    <svg id="bars" viewBox="0 0 880 150" style="margin-top:12px"></svg>
    <div class="note" id="note"></div>
  </div>
+ <div class="card">
+   <h2 style="font-size:14px;margin:0 0 10px;color:var(--mut);font-weight:600;letter-spacing:.02em;text-transform:uppercase">Why this prediction — and is the model honest?</h2>
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+     <div><div style="font-size:12.5px;color:var(--mut);margin-bottom:8px">What pushes THIS mission (green = toward landing, red = toward loss)</div><div id="contrib"></div></div>
+     <div><div style="font-size:12.5px;color:var(--mut);margin-bottom:8px">Calibration on held-out flights — dots near the diagonal = trustworthy probabilities</div><svg id="calib" viewBox="0 0 280 200"></svg></div>
+   </div>
+   <div style="font-size:12.5px;color:var(--mut);margin-top:8px" id="cmtext"></div>
+ </div>
  <div class="foot">Calibrated logistic regression · grounded in public Falcon 9 landing rates by era (swap in the live SpaceX API) · <a href="https://github.com/danielduongg/falcon-recovery" target="_blank">source &amp; analysis →</a></div>
 </div>
 <script>
@@ -140,7 +148,7 @@ const NMEAN=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.mean[i],0)/M.membe
 const NSCALE=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.scale[i],0)/M.members.length);
 const COEF=M.diagnostics.mean_coef;
 const FLAB=["flight # (era)","payload mass","orbit energy","landing pad (RTLS)","reuse count"];
-function drawContrib(){
+function drawContrib(){ if(!document.getElementById('contrib'))return;
   const fv={flight_number:YF[st.year],payload_mass_kg:st.pl,orbit_energy:OE[st.orbit],is_rtls:st.rtls,reuse_count:st.ru};
   const x=F.map(k=>fv[k]);
   const c=x.map((xi,i)=>COEF[i]*((xi-NMEAN[i])/NSCALE[i]));
@@ -151,7 +159,7 @@ function drawContrib(){
     return `<div style="display:grid;grid-template-columns:120px 1fr;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);margin:5px 0"><div>${FLAB[i]}</div><div style="position:relative;height:15px;background:#0a0f1a;border:1px solid var(--line);border-radius:5px"><div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:#2a3650"></div><div style="position:absolute;top:1px;bottom:1px;left:${left}%;width:${Math.max(w,0.5)}%;background:${col};border-radius:3px"></div></div></div>`;
   }).join('');
 }
-function drawCalib(){
+function drawCalib(){ if(!document.getElementById('calib'))return;
   const W=280,H=200,pad=30;const xs=v=>pad+v*(W-pad-8);const ys=v=>H-pad-v*(H-pad-8);
   let g=`<line x1="${pad}" y1="${ys(0)}" x2="${W-8}" y2="${ys(0)}" style="stroke:#1f2a3c"/><line x1="${pad}" y1="8" x2="${pad}" y2="${ys(0)}" style="stroke:#1f2a3c"/>`;
   g+=`<line x1="${xs(0)}" y1="${ys(0)}" x2="${xs(1)}" y2="${ys(1)}" stroke="#42506e" stroke-dasharray="4 4"/>`;
