@@ -4,7 +4,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.calibration import CalibratedClassifierCV
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, roc_curve, confusion_matrix
+from sklearn.calibration import calibration_curve
 
 ORBIT_ENERGY={"LEO":0.0,"ISS":0.05,"SSO":0.35,"Polar":0.45,"GTO":1.0}
 df=pd.read_csv("data_launches.csv")
@@ -37,10 +38,23 @@ def fwd(Xdf):
     return out/len(members)
 print("max|mine-skl|=",f"{np.max(np.abs(fwd(X)-cal.predict_proba(X)[:,1])):.2e}")
 
+# ---- extra diagnostics for the demo + figures (held-out split) ----
+p_te=fwd(X.iloc[te]); y_te=y.iloc[te].values
+fpr,tpr,_=roc_curve(y_te,p_te)
+roc_pts=[[round(float(a),3),round(float(b),3)] for a,b in zip(fpr[::max(1,len(fpr)//40)],tpr[::max(1,len(tpr)//40)])]
+frac,meanp=calibration_curve(y_te,p_te,n_bins=8,strategy="quantile")
+calib=[[round(float(m),3),round(float(f),3)] for m,f in zip(meanp,frac)]
+cm=confusion_matrix(y_te,(p_te>=0.5).astype(int)).tolist()
+# mean standardized logistic coef across members (sign/magnitude of each feature)
+import numpy as _np
+mean_coef=_np.mean([m["coef"] for m in members],axis=0).tolist()
+EXTRAS=dict(roc=roc_pts,calibration=calib,confusion=cm,mean_coef=[round(c,3) for c in mean_coef],
+            auc_full=round(float(auc_full),3),auc_time=round(float(auc_time),3),auc_mission=round(float(auc_mission),3))
 model=dict(features=FEATURES,orbit_energy=ORBIT_ENERGY,members=members,
   metrics=dict(n=len(df),overall_success=round(float(y.mean()),3),
                auc_full=round(float(auc_full),3),auc_time=round(float(auc_time),3),auc_mission=round(float(auc_mission),3)),
   year_rates={int(k):round(float(v),2) for k,v in df.groupby("year").landing_success.mean().items()},
+  diagnostics=EXTRAS,
   econ=dict(booster_cost_m=37.0,other_cost_m=30.0,refurb_cost_m=1.2,expendable_extra_m=0.0,payload_kg=15600))
 json.dump(model,open("web_model.json","w"))
 print("wrote web_model.json",round(len(json.dumps(model))/1024,1),"KB")

@@ -97,6 +97,7 @@ function render(){
   document.getElementById('cpk').textContent='$'+cpk.toFixed(0)+'/kg';
   document.getElementById('cpl').textContent='$'+per.toFixed(1)+'M';
   drawEcon();
+  if(window.drawContrib) drawContrib();
 }
 function drawEcon(){
   const W=360,H=120,pad=26;const xs=u=>pad+(u-1)/(14)*(W-pad-8);
@@ -133,7 +134,38 @@ document.getElementById('af').textContent=M.metrics.auc_full.toFixed(3);
 document.getElementById('at').textContent=M.metrics.auc_time.toFixed(3);
 document.getElementById('am').textContent=M.metrics.auc_mission.toFixed(3);
 document.getElementById('note').innerHTML=`<b>The takeaway.</b> A 0.92-AUC predictor sounds impressive until you notice a flight-number-only model scores the same (${M.metrics.auc_time.toFixed(2)}). The "skill" is mostly survivorship of a maturing program — a trap that shows up constantly in real-world ML when time leaks into the features.`;
-drawBars();render();
+drawBars();
+// ----- diagnostics panels (added in upgrade) -----
+const NMEAN=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.mean[i],0)/M.members.length);
+const NSCALE=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.scale[i],0)/M.members.length);
+const COEF=M.diagnostics.mean_coef;
+const FLAB=["flight # (era)","payload mass","orbit energy","landing pad (RTLS)","reuse count"];
+function drawContrib(){
+  const fv={flight_number:YF[st.year],payload_mass_kg:st.pl,orbit_energy:OE[st.orbit],is_rtls:st.rtls,reuse_count:st.ru};
+  const x=F.map(k=>fv[k]);
+  const c=x.map((xi,i)=>COEF[i]*((xi-NMEAN[i])/NSCALE[i]));
+  const order=c.map((v,i)=>[Math.abs(v),i]).sort((a,b)=>b[0]-a[0]).map(z=>z[1]);
+  const mx=Math.max(...c.map(Math.abs),0.5);
+  document.getElementById('contrib').innerHTML=order.map(i=>{
+    const v=c[i];const w=Math.abs(v)/mx*50;const left=v<0?50-w:50;const col=v>=0?'#27d08a':'#ff5d6c';
+    return `<div style="display:grid;grid-template-columns:120px 1fr;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);margin:5px 0"><div>${FLAB[i]}</div><div style="position:relative;height:15px;background:#0a0f1a;border:1px solid var(--line);border-radius:5px"><div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:#2a3650"></div><div style="position:absolute;top:1px;bottom:1px;left:${left}%;width:${Math.max(w,0.5)}%;background:${col};border-radius:3px"></div></div></div>`;
+  }).join('');
+}
+function drawCalib(){
+  const W=280,H=200,pad=30;const xs=v=>pad+v*(W-pad-8);const ys=v=>H-pad-v*(H-pad-8);
+  let g=`<line x1="${pad}" y1="${ys(0)}" x2="${W-8}" y2="${ys(0)}" style="stroke:#1f2a3c"/><line x1="${pad}" y1="8" x2="${pad}" y2="${ys(0)}" style="stroke:#1f2a3c"/>`;
+  g+=`<line x1="${xs(0)}" y1="${ys(0)}" x2="${xs(1)}" y2="${ys(1)}" stroke="#42506e" stroke-dasharray="4 4"/>`;
+  const pts=M.diagnostics.calibration.map(([m,f])=>xs(m).toFixed(1)+','+ys(f).toFixed(1)).join(' ');
+  g+=`<polyline points="${pts}" fill="none" stroke="#27d08a" stroke-width="2"/>`;
+  M.diagnostics.calibration.forEach(([m,f])=>g+=`<circle cx="${xs(m).toFixed(1)}" cy="${ys(f).toFixed(1)}" r="3.5" fill="#27d08a"/>`);
+  g+=`<text x="${(W+pad)/2}" y="${H-6}" fill="#8aa0bf" font-size="10" text-anchor="middle">predicted</text>`;
+  document.getElementById('calib').innerHTML=g;
+  const cm=M.diagnostics.confusion;
+  document.getElementById('cmtext').innerHTML=`Confusion @0.5: <b style="color:#27d08a">${cm[1][1]}</b> landings &amp; <b style="color:#27d08a">${cm[0][0]}</b> losses called right, ${cm[0][1]+cm[1][0]} missed.`;
+}
+drawCalib();
+
+render();
 </script></body></html>'''
 HTML=HTML.replace("__MODEL__",json.dumps(M))
 open("index.html","w").write(HTML);print("wrote index.html",round(len(HTML)/1024,1),"KB")

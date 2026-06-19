@@ -65,7 +65,7 @@
  <div class="foot">Calibrated logistic regression · grounded in public Falcon 9 landing rates by era (swap in the live SpaceX API) · <a href="https://github.com/danielduongg/falcon-recovery" target="_blank">source &amp; analysis →</a></div>
 </div>
 <script>
-const M={"features": ["flight_number", "payload_mass_kg", "orbit_energy", "is_rtls", "reuse_count"], "orbit_energy": {"LEO": 0.0, "ISS": 0.05, "SSO": 0.35, "Polar": 0.45, "GTO": 1.0}, "members": [{"mean": [138.18085106382978, 7264.962765957447, 0.3720744680851063, 0.1702127659574468, 4.7287234042553195], "scale": [60.14688806543977, 3024.221569210407, 0.4267385651252329, 0.3758196113330999, 2.976114929304808], "coef": [1.2841093848668925, -0.003264568616484059, -0.7564814772453481, 0.2262360208198149, 1.001334482692941], "intercept": 3.2203131607619286, "a": -0.553522250790213, "b": -1.929817679411971}, {"mean": [128.13829787234042, 7201.329787234043, 0.3507978723404255, 0.20212765957446807, 4.095744680851064], "scale": [70.82238813350301, 3029.8071734454747, 0.4152503751208736, 0.4015869380463165, 3.3376292673545236], "coef": [1.1550244605151079, -0.1232975860936207, -0.8503373830328558, -0.3186854232626301, 0.27750999516635855], "intercept": 2.664755007822302, "a": -1.9338133591138482, "b": 0.24092264708935093}, {"mean": [118.63297872340425, 7448.920212765957, 0.3470744680851064, 0.19680851063829788, 3.8404255319148937], "scale": [73.15604407527944, 3021.6802425661867, 0.42408155426435407, 0.39758636895476296, 3.2331500728222737], "coef": [0.9753685062953082, -0.07556758751783742, -0.9140321170295047, -0.40012641947348926, 0.45660093533856483], "intercept": 2.6621489531021116, "a": -1.7653540728297152, "b": 1.4857562175332992}, {"mean": [108.86170212765957, 7198.61170212766, 0.363563829787234, 0.2074468085106383, 3.5319148936170213], "scale": [69.52438743467353, 3008.2424400217756, 0.4260650749045477, 0.405478273338275, 3.0095667591637314], "coef": [1.3266302205940927, -0.10896922190569674, -0.6979572795332244, -0.27763239298555864, 0.2870668907151709], "intercept": 2.6504035266383585, "a": -1.5663124822604466, "b": 2.844621138273354}, {"mean": [96.18617021276596, 7214.218085106383, 0.37606382978723396, 0.20212765957446807, 3.3138297872340425], "scale": [55.86850462234501, 2985.456161070353, 0.4319198065961013, 0.40158693804631646, 3.049663429766866], "coef": [2.0290463407178736, -0.12565380323893666, -0.9663246139103993, -0.289857185396443, 1.2705628163981872], "intercept": 4.213449415969731, "a": -1.0772736902216022, "b": 7.252516048036813}], "metrics": {"n": 235, "overall_success": 0.855, "auc_full": 0.916, "auc_time": 0.916, "auc_mission": 0.864}, "year_rates": {"2013": 0.0, "2014": 0.0, "2015": 0.43, "2016": 0.33, "2017": 0.72, "2018": 0.86, "2019": 1.0, "2020": 0.88, "2021": 0.97, "2022": 0.98, "2023": 0.95}, "econ": {"booster_cost_m": 37.0, "other_cost_m": 30.0, "refurb_cost_m": 1.2, "expendable_extra_m": 0.0, "payload_kg": 15600}, "year_flight": {"2013": 2, "2014": 6, "2015": 12, "2016": 20, "2017": 34, "2018": 54, "2019": 70, "2020": 90, "2021": 118, "2022": 165, "2023": 215}};const F=M.features,OE=M.orbit_energy,YF=M.year_flight;
+const M={"features": ["flight_number", "payload_mass_kg", "orbit_energy", "is_rtls", "reuse_count"], "orbit_energy": {"LEO": 0.0, "ISS": 0.05, "SSO": 0.35, "Polar": 0.45, "GTO": 1.0}, "members": [{"mean": [138.18085106382978, 7264.962765957447, 0.3720744680851063, 0.1702127659574468, 4.7287234042553195], "scale": [60.14688806543977, 3024.221569210407, 0.4267385651252329, 0.3758196113330999, 2.976114929304808], "coef": [1.2841093848668925, -0.003264568616484059, -0.7564814772453481, 0.2262360208198149, 1.001334482692941], "intercept": 3.2203131607619286, "a": -0.553522250790213, "b": -1.929817679411971}, {"mean": [128.13829787234042, 7201.329787234043, 0.3507978723404255, 0.20212765957446807, 4.095744680851064], "scale": [70.82238813350301, 3029.8071734454747, 0.4152503751208736, 0.4015869380463165, 3.3376292673545236], "coef": [1.1550244605151079, -0.1232975860936207, -0.8503373830328558, -0.3186854232626301, 0.27750999516635855], "intercept": 2.664755007822302, "a": -1.9338133591138482, "b": 0.24092264708935093}, {"mean": [118.63297872340425, 7448.920212765957, 0.3470744680851064, 0.19680851063829788, 3.8404255319148937], "scale": [73.15604407527944, 3021.6802425661867, 0.42408155426435407, 0.39758636895476296, 3.2331500728222737], "coef": [0.9753685062953082, -0.07556758751783742, -0.9140321170295047, -0.40012641947348926, 0.45660093533856483], "intercept": 2.6621489531021116, "a": -1.7653540728297152, "b": 1.4857562175332992}, {"mean": [108.86170212765957, 7198.61170212766, 0.363563829787234, 0.2074468085106383, 3.5319148936170213], "scale": [69.52438743467353, 3008.2424400217756, 0.4260650749045477, 0.405478273338275, 3.0095667591637314], "coef": [1.3266302205940927, -0.10896922190569674, -0.6979572795332244, -0.27763239298555864, 0.2870668907151709], "intercept": 2.6504035266383585, "a": -1.5663124822604466, "b": 2.844621138273354}, {"mean": [96.18617021276596, 7214.218085106383, 0.37606382978723396, 0.20212765957446807, 3.3138297872340425], "scale": [55.86850462234501, 2985.456161070353, 0.4319198065961013, 0.40158693804631646, 3.049663429766866], "coef": [2.0290463407178736, -0.12565380323893666, -0.9663246139103993, -0.289857185396443, 1.2705628163981872], "intercept": 4.213449415969731, "a": -1.0772736902216022, "b": 7.252516048036813}], "metrics": {"n": 235, "overall_success": 0.855, "auc_full": 0.916, "auc_time": 0.916, "auc_mission": 0.864}, "year_rates": {"2013": 0.0, "2014": 0.0, "2015": 0.43, "2016": 0.33, "2017": 0.72, "2018": 0.86, "2019": 1.0, "2020": 0.88, "2021": 0.97, "2022": 0.98, "2023": 0.95}, "diagnostics": {"roc": [[0.0, 0.0], [0.0, 0.02], [0.0, 0.68], [0.111, 0.68], [0.111, 0.94], [0.556, 0.94], [0.556, 0.98], [0.667, 0.98], [0.667, 1.0], [1.0, 1.0]], "calibration": [[0.267, 0.375], [0.505, 0.571], [0.628, 1.0], [0.718, 0.875], [0.846, 1.0], [0.944, 1.0], [0.98, 1.0], [0.996, 1.0]], "confusion": [[8, 1], [3, 47]], "mean_coef": [1.354, -0.087, -0.837, -0.212, 0.659], "auc_full": 0.916, "auc_time": 0.916, "auc_mission": 0.864}, "econ": {"booster_cost_m": 37.0, "other_cost_m": 30.0, "refurb_cost_m": 1.2, "expendable_extra_m": 0.0, "payload_kg": 15600}, "year_flight": {"2013": 2, "2014": 6, "2015": 12, "2016": 20, "2017": 34, "2018": 54, "2019": 70, "2020": 90, "2021": 118, "2022": 165, "2023": 215}};const F=M.features,OE=M.orbit_energy,YF=M.year_flight;
 const st={year:2016,orbit:"GTO",rtls:0,pl:5200,ru:0};
 function prob(){
   const fv={flight_number:YF[st.year],payload_mass_kg:st.pl,orbit_energy:OE[st.orbit],is_rtls:st.rtls,reuse_count:st.ru};
@@ -93,6 +93,7 @@ function render(){
   document.getElementById('cpk').textContent='$'+cpk.toFixed(0)+'/kg';
   document.getElementById('cpl').textContent='$'+per.toFixed(1)+'M';
   drawEcon();
+  if(window.drawContrib) drawContrib();
 }
 function drawEcon(){
   const W=360,H=120,pad=26;const xs=u=>pad+(u-1)/(14)*(W-pad-8);
@@ -129,5 +130,36 @@ document.getElementById('af').textContent=M.metrics.auc_full.toFixed(3);
 document.getElementById('at').textContent=M.metrics.auc_time.toFixed(3);
 document.getElementById('am').textContent=M.metrics.auc_mission.toFixed(3);
 document.getElementById('note').innerHTML=`<b>The takeaway.</b> A 0.92-AUC predictor sounds impressive until you notice a flight-number-only model scores the same (${M.metrics.auc_time.toFixed(2)}). The "skill" is mostly survivorship of a maturing program — a trap that shows up constantly in real-world ML when time leaks into the features.`;
-drawBars();render();
+drawBars();
+// ----- diagnostics panels (added in upgrade) -----
+const NMEAN=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.mean[i],0)/M.members.length);
+const NSCALE=M.features.map((_,i)=>M.members.reduce((a,m)=>a+m.scale[i],0)/M.members.length);
+const COEF=M.diagnostics.mean_coef;
+const FLAB=["flight # (era)","payload mass","orbit energy","landing pad (RTLS)","reuse count"];
+function drawContrib(){
+  const fv={flight_number:YF[st.year],payload_mass_kg:st.pl,orbit_energy:OE[st.orbit],is_rtls:st.rtls,reuse_count:st.ru};
+  const x=F.map(k=>fv[k]);
+  const c=x.map((xi,i)=>COEF[i]*((xi-NMEAN[i])/NSCALE[i]));
+  const order=c.map((v,i)=>[Math.abs(v),i]).sort((a,b)=>b[0]-a[0]).map(z=>z[1]);
+  const mx=Math.max(...c.map(Math.abs),0.5);
+  document.getElementById('contrib').innerHTML=order.map(i=>{
+    const v=c[i];const w=Math.abs(v)/mx*50;const left=v<0?50-w:50;const col=v>=0?'#27d08a':'#ff5d6c';
+    return `<div style="display:grid;grid-template-columns:120px 1fr;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);margin:5px 0"><div>${FLAB[i]}</div><div style="position:relative;height:15px;background:#0a0f1a;border:1px solid var(--line);border-radius:5px"><div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:#2a3650"></div><div style="position:absolute;top:1px;bottom:1px;left:${left}%;width:${Math.max(w,0.5)}%;background:${col};border-radius:3px"></div></div></div>`;
+  }).join('');
+}
+function drawCalib(){
+  const W=280,H=200,pad=30;const xs=v=>pad+v*(W-pad-8);const ys=v=>H-pad-v*(H-pad-8);
+  let g=`<line x1="${pad}" y1="${ys(0)}" x2="${W-8}" y2="${ys(0)}" style="stroke:#1f2a3c"/><line x1="${pad}" y1="8" x2="${pad}" y2="${ys(0)}" style="stroke:#1f2a3c"/>`;
+  g+=`<line x1="${xs(0)}" y1="${ys(0)}" x2="${xs(1)}" y2="${ys(1)}" stroke="#42506e" stroke-dasharray="4 4"/>`;
+  const pts=M.diagnostics.calibration.map(([m,f])=>xs(m).toFixed(1)+','+ys(f).toFixed(1)).join(' ');
+  g+=`<polyline points="${pts}" fill="none" stroke="#27d08a" stroke-width="2"/>`;
+  M.diagnostics.calibration.forEach(([m,f])=>g+=`<circle cx="${xs(m).toFixed(1)}" cy="${ys(f).toFixed(1)}" r="3.5" fill="#27d08a"/>`);
+  g+=`<text x="${(W+pad)/2}" y="${H-6}" fill="#8aa0bf" font-size="10" text-anchor="middle">predicted</text>`;
+  document.getElementById('calib').innerHTML=g;
+  const cm=M.diagnostics.confusion;
+  document.getElementById('cmtext').innerHTML=`Confusion @0.5: <b style="color:#27d08a">${cm[1][1]}</b> landings &amp; <b style="color:#27d08a">${cm[0][0]}</b> losses called right, ${cm[0][1]+cm[1][0]} missed.`;
+}
+drawCalib();
+
+render();
 </script></body></html>

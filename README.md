@@ -1,5 +1,7 @@
 # 🚀 falcon-recovery — Will the booster land?
 
+[![CI](https://github.com/danielduongg/falcon-recovery/actions/workflows/ci.yml/badge.svg)](https://github.com/danielduongg/falcon-recovery/actions)
+
 A calibrated classifier for **Falcon 9 first-stage recovery**, with a live in-browser demo and a deliberately honest finding about *why* it works.
 
 ### ▶️ [Live demo](https://danielduongg.github.io/falcon-recovery/)
@@ -23,6 +25,18 @@ Knowing *when* a flight happened predicts recovery as well as anything about the
 - Historically-grounded data generator calibrated to public per-year landing rates (`simulate.py`); columns mirror the SpaceX API (`v4` launches + cores + payloads) so you can swap in live data.
 - Calibrated logistic regression (Platt scaling, 5-fold) — `train.py`.
 - The trained model is exported to JSON and re-implemented in ~10 lines of JavaScript; the browser scores match scikit-learn to machine precision (verified in `train.py`).
+
+## Results
+
+![Landing success by year](results/figures/success_by_year.png)
+![ROC and calibration](results/figures/roc_calibration.png)
+![AUC comparison](results/figures/auc_comparison.png)
+
+The calibration curve sits on the diagonal (probabilities are trustworthy), and the AUC comparison is the punchline: **flight-number-only ≈ full model**.
+
+## Tests & CI
+
+`pytest` covers generator reproducibility, the success-rate climb, the model-export shape, the temporal-confounding finding, and the JS↔Python forward-pass agreement. GitHub Actions runs the full pipeline + tests on every push.
 
 ## Run it
 
